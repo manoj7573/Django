@@ -1,0 +1,26 @@
+    {% extends 'book/library.html' %}
+    {% block content %}
+
+	<div class="container">
+	    <div class="row">
+          <div class="col-sm-3">
+              <h2>Month Totals</h2>
+        <table class="table"  >
+            <thead >
+                <tr style="background-color:#EC9A9A;color:#000000;">
+                    <th>Month</th>
+                    <th>Amount</th>
+                </tr>
+
+                {% for i in data %}
+                <tr  style="background-color:#F7D2D2;color:#000000;"   >
+                    <td>{{ i.month}}</td>
+                    <td>{{ i.amount__sum}}</td>
+                </tr>
+                {% endfor %}
+            </thead>
+        </table>
+    </div>
+    </div>
+    </div>
+    {% endblock %}

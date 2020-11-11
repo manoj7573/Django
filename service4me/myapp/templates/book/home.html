@@ -1,0 +1,173 @@
+{% extends 'book/library.html' %}
+    {% block content %}
+
+<div class="container" >
+
+      <div class="row">
+<div class="col-sm-4" >
+<div class="btn-group">
+<div class="container">
+
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Received Amount</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Received Amount</h4>
+        </div>
+        <div class="modal-body">
+
+			  	    <form method = 'POST' enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <table class = 'w-50 table table-light'   style="border-radius:10px;background-color:#FFFF99;">
+                            {% for field in upload_form %}
+                            <tr>
+                                <th>{{field.label}}</th>
+                                <td>{{ field }} </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <input type="submit" name="Received" class="btn btn-success" value="Submit Received" />
+
+
+                    </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">Add Spent Amount</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Spent Amount</h4>
+        </div>
+        <div class="modal-body">
+
+			  	    <form method = 'POST' enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <table class = 'w-50 table table-light'   style="border-radius:10px;background-color:#FFFF99;">
+                            {% for field in upload_form %}
+                            <tr>
+                                <th>{{field.label}}</th>
+                                <td>{{ field }} </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <input type="submit" name="Spent" class="btn btn-success" value="Submit Spent" />
+
+
+                    </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+ <div class="col-sm-4" >
+<div class="row">
+        <div class="col-sm-2" >
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Spent Reports
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'get_data_spent' %}">Today</a></li>
+              <li><a href="{% url 'get_sum_spent' %}">DayTotal</a></li>
+            </ul>
+          </div>
+          </div>
+          </div>
+          <br>
+<div class="row">
+        <div class="col-sm-2" >
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Received Reports
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'pie-chart' %}">Pie_chart</a></li>
+              <li><a href="{% url 'get_sum' %}">Day</a></li>
+
+            </ul>
+          </div>
+        </div>
+
+ </div>
+</div>
+
+
+
+          <div class="col-sm-2" >
+
+              <table class="table"  >
+            <thead >
+                <tr style="background-color:#EC9A9A;color:#000000;">
+
+                    <th>Today </a></th>
+                </tr>
+
+                {% for i in data %}
+                <tr  style="background-color:#F7D2D2;color:#000000;"   >
+
+                    <td> <a href="{% url 'get_data' %}"> ₹{{ i.amount__sum}}</td>
+                </tr>
+                {% endfor %}
+            </thead>
+        </table>
+
+        </div>
+
+        <div class="col-sm-4" >
+            <h2>Updates:</h2>
+            <h>06-11-2020</h>
+            <p>1.Now you can see Year level Amount under reports , Received Reports - Day</p>
+            <p>2.Click on Amount to get detailed transactions details</p>
+            <p>3.Pie chart reports on received Amount, click Received Reports - Pie charts </p>
+
+        </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+<!-- &&&&&&&&&&&&&&&&&&&&&& -->
+
+
+
+
+
+
+    {% endblock %}

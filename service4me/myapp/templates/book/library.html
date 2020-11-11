@@ -1,0 +1,124 @@
+    <!DOCTYPE html>
+    {% load static %}
+    <html>
+
+    <head>
+        <title>Service4Me</title>
+
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+
+
+        <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+
+    </div>
+    <ul class="nav navbar-nav">
+
+      {% if user.is_authenticated %}
+      <li class="active"><a  href="{% url 'home' %}" >Home</a></li>
+      <li ><a  href="{% url 'worktrack' %}" >Work Track</a></li>
+      <!--<li ><a  href="{% url 'marriage' %}" >Marriage Details</a></li> -->
+      <li ><a  href="#" >Profile</a></li>
+      <li ><a  href="{% url 'logout' %}" >Logout</a></li>
+      <li ><a> Hello {{ user }} !!</a></li>
+      {% else %}
+      <li><a href="{% url 'index' %}" > Service4Me </a></li>
+      <!--<li><a  href="{% url 'login' %}" >Login</a></li> -->
+      <li><a  href="#" >About</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+
+
+
+    <br>
+
+		{% block content %}
+
+        <div>
+
+        </div>
+
+        <div class="container" >
+            <div class="row">
+
+              </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <h3>New Features Added:</h3>
+      <p>Daily Job Tracking </p>
+    </div>
+    <div class="col-sm-3">
+      <h3>Up Coming Services:</h3>
+      <p>Comong Soon..</p>
+
+    </div>
+
+    <div class="col-sm-3">
+      <h3>Note:</h3>
+      <p>For forget password URL please contact below number</p>
+
+    </div>
+
+    <div class="col-sm-3">
+      {% load crispy_forms_tags %}
+    <div class="content-section" style="width: 20rem;">
+        <form method="POST">
+
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                {{ form|crispy }}
+            </fieldset>
+       <div class="border-top pt-3">
+            <small class="text-muted">
+                Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+            </small>
+        </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Login</button>
+                <a class="btn btn-warning" href="{% url 'change_password' %}">Forgot Password</a>
+            </div>
+        </form>
+
+
+    </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+		{% endblock %}
+
+
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+  <h3>Contact:</h3>
+  <p>+919951807573</p>
+</div>
+
+
+
+    </body>
+    </html>

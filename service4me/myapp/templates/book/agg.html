@@ -1,0 +1,89 @@
+    {% extends 'book/library.html' %}
+    {% block content %}
+
+	<div class="container">
+	    <div class="row">
+
+	       <div class="col-sm-3">
+              <h2><center>Year</center></h2>
+                <table class="table"  >
+                <thead >
+                <tr style="background-color:#a81cb6;color:#000000;">
+                    <th>Year</th>
+                    <th>Amount</th>
+                </tr>
+
+                {% for i in data_year %}
+                <tr  style="background-color:#eec2f2;color:#000000;"   >
+
+                    <td>{{ i.year}}</a></td>
+                    <td>₹{{ i.amount__sum}}</td>
+                </tr>
+                {% endfor %}
+                </thead>
+                </table>
+            </div>
+
+	       <div class="col-sm-3">
+              <h2><center>Month</center></h2>
+                <table class="table"  >
+                <thead >
+                <tr style="background-color:#05807f;color:#000000;">
+                    <th>Month</th>
+                    <th>Amount</th>
+                </tr>
+
+                {% for i in data_month %}
+                <tr  style="background-color:#a3f1f0;color:#000000;"   >
+
+                    <td>{{ i.month}}</a></td>
+                    <td>₹{{ i.amount__sum}}</td>
+                </tr>
+                {% endfor %}
+                </thead>
+                </table>
+            </div>
+
+            <div class="col-sm-3">
+              <h2><center>Day</center></h2>
+                <table class="table"  >
+                <thead >
+                <tr style="background-color:#137ac7;color:#000000;">
+                    <th>Date</th>
+                    <th>Amount</th>
+                </tr>
+
+                {% for i in data %}
+                <tr  style="background-color:#9eccee;color:#000000;"   >
+
+                    <td><a href="getdata/{{ i.date|date:"Ymj"}}" class="btn btn-link" id = {{ i.date|date:"Y-m-j"}}>{{ i.date}}</a></td>
+                    <td>₹{{ i.amount__sum}}</td>
+                </tr>
+                {% endfor %}
+                </thead>
+                </table>
+            </div>
+            <div class="col-sm-3">
+              <h2><center>Today</center></h2>
+                <table class="table"  >
+                <thead >
+                <tr style="background-color:#CCCCCC;color:#000000;">
+                    <th>Item</th>
+                    <th>Amount</th>
+                </tr>
+
+                {% for i in data_day %}
+                <tr  style="background-color:#F1F1F1;color:#000000;"   >
+
+                    <td>{{ i.name}}</td>
+                    <td>₹{{ i.amount}}</td>
+                </tr>
+                {% endfor %}
+                </thead>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+    {% endblock %}

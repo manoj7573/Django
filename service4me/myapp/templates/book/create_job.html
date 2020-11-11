@@ -1,0 +1,28 @@
+
+{% extends 'book/library.html' %}
+
+{% block content %}
+<center>
+	<div class="container">
+	    <div class="row">
+          <div class="col-sm-4">
+          <form method = 'POST' enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <table class = 'w-50 table table-light'>
+
+                {% for field in data %}
+                <tr>
+                    <th>{{field.label}}</th>
+                    <td>{{ field }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <button type="submit" class="btn btn-lg btn-warning"  style="background-color:#74F829;color:#000000;" >Submit</button>
+        </form>
+
+    </div>
+    </div>
+    </div>
+</center>
+{% endblock %}

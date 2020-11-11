@@ -1,0 +1,30 @@
+{% extends 'book/library.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+          <div class="col-sm-4">
+  <table class="table"  >
+    <thead >
+      <tr style="background-color:#EC9A9A;color:#000000;">
+        <th>Item</th>
+        <th>Amount</th>
+        <th>Edit</th>
+          <th>Delete</th>
+      </tr>
+
+    {% for i in data %}
+    <tr  style="background-color:#F7D2D2;color:#000000;"   >
+        <td>{{ i.name}}</td>
+        <td>₹{{ i.amount}}</td>
+        <td><a href="update/{{i.id}}" class="btn btn-secondary"  id = '{{i.id}}'>Edit</a></td>
+        <td><a href="delete/{{i.id}}" class="btn btn-danger" id = '{{i.id}}'
+onclick="return confirm('Are you sure you want to delete this?')">Delete</a></td>
+    </tr>
+    {% endfor %}
+    </thead>
+  </table>
+</div>
+</div>
+</div>
+{% endblock %}
