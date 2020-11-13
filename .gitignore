@@ -1,3 +1,4 @@
+/service4me/*.sqlite3
+/service4me/service4me/__pycache__/*.pyc
 *.pyc
-*.py
-*.sqlite3
+__pycache__
