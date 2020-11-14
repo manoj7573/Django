@@ -42,7 +42,8 @@ urlpatterns = [
     path('image_upload/', views.hotel_image_view, name = 'image_upload'),
     path('success', views.success, name = 'success'),
 
-    path('pie-chart/', views.pie_chart, name='pie-chart'),
+    path('pie_chart/', views.pie_chart, name='pie-chart'),
+    path('pie_chart_spent/', views.pie_chart_spent, name='pie_chart_spent'),
     path('email/', views.email ),
 ]
 #DataFlair

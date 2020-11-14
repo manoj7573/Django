@@ -7,6 +7,10 @@ import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import F, Count
+from django.shortcuts import render
+from django.db.models import Sum
+from django.http import JsonResponse
+
 
 #from django.contrib.auth.models import User
 from django.urls import reverse_lazy
@@ -353,6 +357,21 @@ def pie_chart(request):
         'labels': labels,
         'data': data,
     })
+@login_required
+def pie_chart_spent(request):
+    labels = []
+    data = []
+
+    queryset = Spent.objects.filter(author=request.user).values('name').annotate(amt=Sum('amount')).order_by('-amt')
+    for i in queryset:
+        labels.append(i[list(i.keys())[0]])
+        data.append(i[list(i.keys())[1]])
+
+    return render(request, 'reports/pie.html', {
+        'labels': labels,
+        'data': data,
+    })
+
 
 def email(request):
     subject = 'Thank you for registering to our site'
