@@ -10,6 +10,8 @@ from django.db.models import F, Count
 from django.shortcuts import render
 from django.db.models import Sum
 from django.http import JsonResponse
+from django.shortcuts import render
+from django.core import serializers
 
 
 #from django.contrib.auth.models import User
@@ -81,7 +83,11 @@ def getdata_e(request,date):
     date_time_obj = datetime.datetime.strptime(str(date), '%Y%m%d')
     data = Received.objects.filter(date=date_time_obj.date(), author=request.user)
     return render(request, 'book/out.html', {'data': data})
-
+@login_required
+def getdata_s(request,date):
+    date_time_obj = datetime.datetime.strptime(str(date), '%Y%m%d')
+    data = Spent.objects.filter(date=date_time_obj.date(), author=request.user)
+    return render(request, 'book/out.html', {'data': data})
 @login_required
 def getspentdata(request):
     upload = ReceivedCreate()
@@ -107,7 +113,9 @@ def sum(request):
 def sumspent(request):
     data = Spent.objects.filter(author=request.user).values('date').order_by('-date').annotate(Sum('amount'))
     data_month=Spent.objects.annotate(month=ExtractMonth ('date')).values('month').annotate(Sum('amount'))
-    return render(request, 'book/agg.html', {'data': data,'data_month':data_month})
+    data_day = Spent.objects.filter(date=datetime.date.today(), author=request.user)
+    data_year = Spent.objects.annotate(year=ExtractYear('date')).values('year').annotate(Sum('amount'))
+    return render(request, 'book/agg.html', {'data': data,'data_month':data_month,'data_day':data_day, 'data_year':data_year})
 
 @login_required
 def upload(request):
@@ -154,6 +162,32 @@ def update_book(request, book_id):
     if book_form.is_valid():
        book_form.save()
        return redirect('get_data')
+    return render(request, 'book/upload_form.html', {'upload_form':book_form})
+
+@login_required
+def sum_update_book(request, book_id):
+    book_id = int(book_id)
+    try:
+        book_sel = Received.objects.get(id = book_id)
+    except Received.DoesNotExist:
+        return redirect('get_data')
+    book_form = ReceivedCreate(request.POST or None, instance = book_sel)
+    if book_form.is_valid():
+       book_form.save()
+       return redirect('get_sum')
+    return render(request, 'book/upload_form.html', {'upload_form':book_form})
+
+@login_required
+def sum_update_spent(request, book_id):
+    book_id = int(book_id)
+    try:
+        book_sel = Spent.objects.get(id = book_id)
+    except Spent.DoesNotExist:
+        return redirect('get_data')
+    book_form = SpentCreate(request.POST or None, instance = book_sel)
+    if book_form.is_valid():
+       book_form.save()
+       return redirect('get_sum_spent')
     return render(request, 'book/upload_form.html', {'upload_form':book_form})
 
 @login_required
@@ -373,6 +407,7 @@ def pie_chart_spent(request):
     })
 
 
+@login_required
 def email(request):
     subject = 'Thank you for registering to our site'
     message = ' it  means a world to us '

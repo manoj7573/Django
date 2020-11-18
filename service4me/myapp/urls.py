@@ -11,7 +11,11 @@ urlpatterns = [
     path('getdata/update/<int:book_id>', views.update_book),
     path('getdata/delete/<int:book_id>', views.delete_book),
 
+    path('sumreceived/getdata/update/<int:book_id>', views.sum_update_book),
+    path('sumspent/getdata/update/<int:book_id>', views.sum_update_spent),
+
     path('sumreceived/getdata/<int:date>', views.getdata_e),
+    path('sumspent/getdata/<int:date>', views.getdata_s),
 
     path('getdata/', views.getdata, name = 'get_data'),
     path('sumreceived/', views.sum, name = 'get_sum'),
@@ -44,6 +48,7 @@ urlpatterns = [
 
     path('pie_chart/', views.pie_chart, name='pie-chart'),
     path('pie_chart_spent/', views.pie_chart_spent, name='pie_chart_spent'),
+
     path('email/', views.email ),
 ]
 #DataFlair
