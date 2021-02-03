@@ -101,7 +101,8 @@ def sum(request):
     data_month=Received.objects.annotate(month=ExtractMonth ('date')).values('month').annotate(Sum('amount'))
     data_day=Received.objects.filter(date=datetime.date.today(), author=request.user)
     data_year=Received.objects.annotate(year=ExtractYear ('date')).values('year').annotate(Sum('amount'))
-    return render(request, 'book/agg.html', {'data': data, 'data_month':data_month, 'data_day':data_day, 'data_year':data_year})
+    data_mt=Received.objects.filter(author=request.user,date__year=today.year).annotate(month=ExtractMonth ('date')).values('month').annotate(Sum('amount'))
+    return render(request, 'book/agg.html', {'data': data, 'data_month':data_mt, 'data_day':data_day, 'data_year':data_year})
 
 #@login_required
 #def month_received(request):
@@ -111,11 +112,13 @@ def sum(request):
 
 @login_required
 def sumspent(request):
-    data = Spent.objects.filter(author=request.user).values('date').order_by('-date').annotate(Sum('amount'))
+    today = datetime.date.today()
+    data = Spent.objects.filter(author=request.user,date__month=today.month).values('date').order_by('-date').annotate(Sum('amount'))
     data_month=Spent.objects.annotate(month=ExtractMonth ('date')).values('month').annotate(Sum('amount'))
     data_day = Spent.objects.filter(date=datetime.date.today(), author=request.user)
     data_year = Spent.objects.annotate(year=ExtractYear('date')).values('year').annotate(Sum('amount'))
-    return render(request, 'book/agg.html', {'data': data,'data_month':data_month,'data_day':data_day, 'data_year':data_year})
+    data_mt = Spent.objects.filter(author=request.user,date__year=today.year).annotate(month=ExtractMonth ('date')).values('month').annotate(Sum('amount'))
+    return render(request, 'book/agg.html', {'data': data,'data_month':data_mt,'data_day':data_day, 'data_year':data_year})
 
 @login_required
 def upload(request):
@@ -415,3 +418,7 @@ def email(request):
     recipient_list = ['manoj7573@gmail.com',]
     send_mail( subject, message, email_from, recipient_list )
     return redirect('home')
+
+def new_look(request):
+    data = Received.objects.filter( date=datetime.date.today(), author=request.user).values('date').annotate(Sum('amount'))
+    return render(request, 'reports/new_template.html', {'data': data} )

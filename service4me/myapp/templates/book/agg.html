@@ -1,6 +1,10 @@
     {% extends 'book/library.html' %}
     {% block content %}
 
+    <center>
+    <a class="btn btn-primary" href="{% url 'pie-chart' %}">Switch to Pie_chart</a>
+    </center>
+
 	<div class="container">
 	    <div class="row">
 
@@ -28,13 +32,13 @@
               <h2><center>Month</center></h2>
                 <table class="table"  >
                 <thead >
-                <tr style="background-color:#05807f;color:#000000;">
+                <tr style="background-color:#ff8080;color:#000000;">
                     <th>Month</th>
                     <th>Amount</th>
                 </tr>
 
                 {% for i in data_month %}
-                <tr  style="background-color:#a3f1f0;color:#000000;"   >
+                <tr  style="background-color:#ffe6e6;color:#000000;"   >
 
                     <td>{{ i.month}}</a></td>
                     <td>₹{{ i.amount__sum}}</td>
@@ -48,13 +52,13 @@
               <h2><center>Day</center></h2>
                 <table class="table"  >
                 <thead >
-                <tr style="background-color:#137ac7;color:#000000;">
+                <tr style="background-color:#ff1ac6;color:#000000;">
                     <th>Date</th>
                     <th>Amount</th>
                 </tr>
 
                 {% for i in data %}
-                <tr  style="background-color:#9eccee;color:#000000;"   >
+                <tr  style="background-color:#ffccf2;color:#000000;"   >
 
                     <td><a href="getdata/{{ i.date|date:"Ymj"}}" class="btn btn-link" id = {{ i.date|date:"Y-m-j"}}>{{ i.date}}</a></td>
                     <td>₹{{ i.amount__sum}}</td>
@@ -67,13 +71,13 @@
               <h2><center>Today</center></h2>
                 <table class="table"  >
                 <thead >
-                <tr style="background-color:#CCCCCC;color:#000000;">
+                <tr style="background-color:#5cd65c;color:#000000;">
                     <th>Item</th>
                     <th>Amount</th>
                 </tr>
 
                 {% for i in data_day %}
-                <tr  style="background-color:#F1F1F1;color:#000000;"   >
+                <tr  style="background-color:#c2f0c2;color:#000000;"   >
 
                     <td>{{ i.name}}</td>
                     <td>₹{{ i.amount}}</td>

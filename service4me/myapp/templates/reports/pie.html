@@ -1,6 +1,12 @@
 {% extends 'book/library.html' %}
 
 {% block content %}
+
+    <center>
+    <a class="btn btn-primary" href="{% url 'get_sum' %}">Switch to Day Reports</a>
+    </center>
+
+
   <div id="container" style="width: 75%;">
     <canvas id="pie-chart"></canvas>
   </div>

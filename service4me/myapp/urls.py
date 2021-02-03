@@ -29,7 +29,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     #path('profile/', views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='book/library.html'),name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='book/library.html'), name= 'logout'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='book/logout.html'), name= 'logout'),
 
     path('home/',views.home, name= 'home'),
     path('worktrack/',views.work_track, name= 'worktrack'),
@@ -50,6 +50,8 @@ urlpatterns = [
     path('pie_chart_spent/', views.pie_chart_spent, name='pie_chart_spent'),
 
     path('email/', views.email ),
+    path('email/', views.email ),
+    path('new_look/', views.new_look, name = 'new_look'),
 ]
 #DataFlair
 
