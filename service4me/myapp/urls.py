@@ -7,20 +7,20 @@ from django.contrib.auth import views as auth_views
 #from django.views.generic.dates import DateDetailView
 urlpatterns = [
     path('', auth_views.LoginView.as_view(template_name='book/library.html'), name = 'index'),
-    path('upload/', views.upload, name = 'upload-data'),
+    ##path('upload/', views.upload, name = 'upload-data'),
     path('getdata/update/<int:book_id>', views.update_book),
     path('getdata/delete/<int:book_id>', views.delete_book),
 
-    path('sumreceived/getdata/update/<int:book_id>', views.sum_update_book),
-    path('sumspent/getdata/update/<int:book_id>', views.sum_update_spent),
+    ##path('sumreceived/getdata/update/<int:book_id>', views.sum_update_book),
+    ##path('sumspent/getdata/update/<int:book_id>', views.sum_update_spent),
 
-    path('sumreceived/getdata/<int:date>', views.getdata_e),
-    path('sumspent/getdata/<int:date>', views.getdata_s),
+    ##path('sumreceived/getdata/<int:date>', views.getdata_e),
+    ##path('sumspent/getdata/<int:date>', views.getdata_s),
 
     path('getdata/', views.getdata, name = 'get_data'),
     path('sumreceived/', views.sum, name = 'get_sum'),
     path('sumspent/', views.sumspent, name = 'get_sum_spent'),
-    path('upload_spent/', views.upload_spent, name = 'upload-data-spent'),
+    ##path('upload_spent/', views.upload_spent, name = 'upload-data-spent'),
     path('getspentdata/', views.getspentdata, name = 'get_data_spent'),
     path('getspentdata/delete/<int:book_id>', views.delete_spent),
     path('getspentdata/update/<int:book_id>', views.update_spent),
@@ -43,15 +43,15 @@ urlpatterns = [
     path('marriage/delete/<int:book_Sno>', views.delete_marriage),
     path('marriage/more_details/<int:book_Sno>', views.mrg_more_details),
 
-    path('image_upload/', views.hotel_image_view, name = 'image_upload'),
-    path('success', views.success, name = 'success'),
+    ##path('image_upload/', views.hotel_image_view, name = 'image_upload'),
+    ##path('success', views.success, name = 'success'),
 
     path('pie_chart/', views.pie_chart, name='pie-chart'),
     path('pie_chart_spent/', views.pie_chart_spent, name='pie_chart_spent'),
 
-    path('email/', views.email ),
-    path('email/', views.email ),
-    path('new_look/', views.new_look, name = 'new_look'),
+    ##path('email/', views.email ),
+    ##path('email/', views.email ),
+    ##path('new_look/', views.new_look, name = 'new_look'),
 ]
 #DataFlair
 

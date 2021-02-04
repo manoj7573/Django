@@ -70,24 +70,13 @@ def home(request):
         data = Received.objects.filter( date=datetime.date.today(), author=request.user).values('date').annotate(Sum('amount'))
         return render(request, 'book/home.html', {'upload_form':upload ,'data':data})
 
-#def index(request):
-#    return render(request, 'book/library.html', {})
 
 @login_required
 def getdata(request):
     upload = ReceivedCreate()
     data = Received.objects.filter(date=datetime.date.today(), author=request.user)
     return render(request, 'book/out.html', {'upload_form':upload,'data': data})
-@login_required
-def getdata_e(request,date):
-    date_time_obj = datetime.datetime.strptime(str(date), '%Y%m%d')
-    data = Received.objects.filter(date=date_time_obj.date(), author=request.user)
-    return render(request, 'book/out.html', {'data': data})
-@login_required
-def getdata_s(request,date):
-    date_time_obj = datetime.datetime.strptime(str(date), '%Y%m%d')
-    data = Spent.objects.filter(date=date_time_obj.date(), author=request.user)
-    return render(request, 'book/out.html', {'data': data})
+
 @login_required
 def getspentdata(request):
     upload = ReceivedCreate()
@@ -104,11 +93,6 @@ def sum(request):
     data_mt=Received.objects.filter(author=request.user,date__year=today.year).annotate(month=ExtractMonth ('date')).values('month').annotate(Sum('amount'))
     return render(request, 'book/agg.html', {'data': data, 'data_month':data_mt, 'data_day':data_day, 'data_year':data_year})
 
-#@login_required
-#def month_received(request):
-#    data=Received.objects.annotate(month=ExtractMonth ('date')).values('month').annotate(Sum('amount'))
-#    #shelf1 = Received.objects.filter(author=request.user).values('date').annotate(Sum('amount'))
-#    return render(request, 'book/month_sum.html', {'data': data})
 
 @login_required
 def sumspent(request):
@@ -119,39 +103,6 @@ def sumspent(request):
     data_year = Spent.objects.annotate(year=ExtractYear('date')).values('year').annotate(Sum('amount'))
     data_mt = Spent.objects.filter(author=request.user,date__year=today.year).annotate(month=ExtractMonth ('date')).values('month').annotate(Sum('amount'))
     return render(request, 'book/agg.html', {'data': data,'data_month':data_mt,'data_day':data_day, 'data_year':data_year})
-
-@login_required
-def upload(request):
-    upload = ReceivedCreate()
-    if request.method == 'POST':
-        upload = ReceivedCreate(request.POST, request.FILES)
-        if upload.is_valid():
-            upload = upload.save(commit=False)
-            upload.author= request.user
-            upload.save()
-            return redirect('home')
-            #return render(request, 'book/upload_form.html', {'upload_form':upload})
-        else:
-            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
-    else:
-        return render(request, 'book/upload_form.html', {'upload_form':upload})
-
-
-@login_required
-def upload_spent(request):
-    upload = SpentCreate()
-    if request.method == 'POST':
-        upload = SpentCreate(request.POST, request.FILES)
-        if upload.is_valid():
-            upload = upload.save(commit=False)
-            upload.author= request.user
-            upload.save()
-            return redirect('get_data_spent')
-            #return render(request, 'book/upload_form.html', {'upload_form':upload})
-        else:
-            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
-    else:
-        return render(request, 'book/upload_form.html', {'upload_form':upload})
 
 
 @login_required
@@ -167,31 +118,6 @@ def update_book(request, book_id):
        return redirect('get_data')
     return render(request, 'book/upload_form.html', {'upload_form':book_form})
 
-@login_required
-def sum_update_book(request, book_id):
-    book_id = int(book_id)
-    try:
-        book_sel = Received.objects.get(id = book_id)
-    except Received.DoesNotExist:
-        return redirect('get_data')
-    book_form = ReceivedCreate(request.POST or None, instance = book_sel)
-    if book_form.is_valid():
-       book_form.save()
-       return redirect('get_sum')
-    return render(request, 'book/upload_form.html', {'upload_form':book_form})
-
-@login_required
-def sum_update_spent(request, book_id):
-    book_id = int(book_id)
-    try:
-        book_sel = Spent.objects.get(id = book_id)
-    except Spent.DoesNotExist:
-        return redirect('get_data')
-    book_form = SpentCreate(request.POST or None, instance = book_sel)
-    if book_form.is_valid():
-       book_form.save()
-       return redirect('get_sum_spent')
-    return render(request, 'book/upload_form.html', {'upload_form':book_form})
 
 @login_required
 def delete_book(request, book_id):
@@ -227,10 +153,6 @@ def delete_spent(request, book_id):
     return redirect('get_data_spent')
 
 
-@login_required
-#def work_track(request):
-#    shelf = worktrack.objects.all()
-#    return render(request, 'book/work_track.html', {'shelf' : shelf})
 
 @login_required
 def Createjob(request):
@@ -358,27 +280,6 @@ def mrg_more_details(request, book_Sno):
     return render(request, 'book/mrge_more_details.html', {'data' : data})
 
 
-@login_required
-def hotel_image_view(request):
-    form_img = HotelForm()
-    if request.method == 'POST':
-        form = HotelForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            form.save()
-            return redirect('success')
-    elif request.method == 'GET':
-        data = Hotel.objects.all()
-        return render(request, 'book/image.html', {'data' : data,'form_img':form_img})
-        #return render((request, 'display_hotel_images.html',   {'form' : form}))
-
-    else:
-        form = HotelForm()
-        return render(request, 'book/image.html', {'form' : form})
-
-@login_required
-def success(request):
-    return HttpResponse('successfully uploaded')
 
 @login_required
 def pie_chart(request):
@@ -410,15 +311,3 @@ def pie_chart_spent(request):
     })
 
 
-@login_required
-def email(request):
-    subject = 'Thank you for registering to our site'
-    message = ' it  means a world to us '
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = ['manoj7573@gmail.com',]
-    send_mail( subject, message, email_from, recipient_list )
-    return redirect('home')
-
-def new_look(request):
-    data = Received.objects.filter( date=datetime.date.today(), author=request.user).values('date').annotate(Sum('amount'))
-    return render(request, 'reports/new_template.html', {'data': data} )

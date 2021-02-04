@@ -93,6 +93,3 @@ class marriage(models.Model):
         def __str__(self):
                 return self.First_name
 
-class Hotel(models.Model):
-    name = models.CharField(max_length=50)
-    hotel_Main_Img = models.ImageField(upload_to='images/')
