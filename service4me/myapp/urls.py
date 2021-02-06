@@ -49,7 +49,7 @@ urlpatterns = [
     path('pie_chart/', views.pie_chart, name='pie-chart'),
     path('pie_chart_spent/', views.pie_chart_spent, name='pie_chart_spent'),
 
-    ##path('email/', views.email ),
+    path('email/', views.email ),
     ##path('email/', views.email ),
     ##path('new_look/', views.new_look, name = 'new_look'),
 ]

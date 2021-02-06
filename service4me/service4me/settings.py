@@ -136,7 +136,7 @@ SESSION_COOKIE_AGE = 60*60
 
 MEDIA_URL = '/media/'
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "johndavid7573@gmail.com"

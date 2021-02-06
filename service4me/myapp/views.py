@@ -310,4 +310,11 @@ def pie_chart_spent(request):
         'data': data,
     })
 
-
+@login_required
+def email(request):
+    subject = 'Thank you for registering to our site'
+    message = ' Hello james bond  , nice work .. keep it up '
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = ['manoj7573@gmail.com',]
+    send_mail( subject, message, email_from, recipient_list )
+    return redirect('home')
