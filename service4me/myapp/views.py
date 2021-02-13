@@ -152,7 +152,16 @@ def delete_spent(request, book_id):
     book_sel.delete()
     return redirect('get_data_spent')
 
-
+@login_required
+def getdata_e(request,date):
+    date_time_obj = datetime.datetime.strptime(str(date), '%Y%m%d')
+    data = Received.objects.filter(date=date_time_obj.date(), author=request.user)
+    return render(request, 'book/out.html', {'data': data})
+@login_required
+def getdata_s(request,date):
+    date_time_obj = datetime.datetime.strptime(str(date), '%Y%m%d')
+    data = Spent.objects.filter(date=date_time_obj.date(), author=request.user)
+    return render(request, 'book/out.html', {'data': data})
 
 @login_required
 def Createjob(request):

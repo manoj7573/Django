@@ -14,8 +14,8 @@ urlpatterns = [
     ##path('sumreceived/getdata/update/<int:book_id>', views.sum_update_book),
     ##path('sumspent/getdata/update/<int:book_id>', views.sum_update_spent),
 
-    ##path('sumreceived/getdata/<int:date>', views.getdata_e),
-    ##path('sumspent/getdata/<int:date>', views.getdata_s),
+    path('sumreceived/getdata/<int:date>', views.getdata_e),
+    path('sumspent/getdata/<int:date>', views.getdata_s),
 
     path('getdata/', views.getdata, name = 'get_data'),
     path('sumreceived/', views.sum, name = 'get_sum'),
