@@ -162,7 +162,31 @@ def getdata_s(request,date):
     date_time_obj = datetime.datetime.strptime(str(date), '%Y%m%d')
     data = Spent.objects.filter(date=date_time_obj.date(), author=request.user)
     return render(request, 'book/out.html', {'data': data})
+@login_required
+def sum_update_book(request, book_id):
+    book_id = int(book_id)
+    try:
+        book_sel = Received.objects.get(id = book_id)
+    except Received.DoesNotExist:
+        return redirect('get_data')
+    book_form = ReceivedCreate(request.POST or None, instance = book_sel)
+    if book_form.is_valid():
+       book_form.save()
+       return redirect('get_sum')
+    return render(request, 'book/upload_form.html', {'upload_form':book_form})
 
+@login_required
+def sum_update_spent(request, book_id):
+    book_id = int(book_id)
+    try:
+        book_sel = Spent.objects.get(id = book_id)
+    except Spent.DoesNotExist:
+        return redirect('get_data')
+    book_form = SpentCreate(request.POST or None, instance = book_sel)
+    if book_form.is_valid():
+       book_form.save()
+       return redirect('get_sum_spent')
+    return render(request, 'book/upload_form.html', {'upload_form':book_form})
 @login_required
 def Createjob(request):
     data = worktrackCreate()

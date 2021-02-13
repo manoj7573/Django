@@ -11,8 +11,8 @@ urlpatterns = [
     path('getdata/update/<int:book_id>', views.update_book),
     path('getdata/delete/<int:book_id>', views.delete_book),
 
-    ##path('sumreceived/getdata/update/<int:book_id>', views.sum_update_book),
-    ##path('sumspent/getdata/update/<int:book_id>', views.sum_update_spent),
+    path('sumreceived/getdata/update/<int:book_id>', views.sum_update_book),
+    path('sumspent/getdata/update/<int:book_id>', views.sum_update_spent),
 
     path('sumreceived/getdata/<int:date>', views.getdata_e),
     path('sumspent/getdata/<int:date>', views.getdata_s),
