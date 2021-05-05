@@ -60,6 +60,7 @@
                 {% for i in data %}
                 <tr  style="background-color:#ffccf2;color:#000000;"   >
 
+                    <!--<td><a href="getdata/{{ i.date|date:"Ymj"}}" class="btn btn-link" id = {{ i.date|date:"Y-m-j"}}>{{ i.date}}</a></td> -->
                     <td><a href="getdata/{{ i.date|date:"Ymj"}}" class="btn btn-link" id = {{ i.date|date:"Y-m-j"}}>{{ i.date}}</a></td>
                     <td>₹{{ i.amount__sum}}</td>
                 </tr>

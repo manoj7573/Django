@@ -132,7 +132,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 ## session logout time set
-SESSION_COOKIE_AGE = 60*60
+SESSION_COOKIE_AGE = 60*60*12
 
 MEDIA_URL = '/media/'
 
