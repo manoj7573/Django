@@ -1,0 +1,57 @@
+{% extends 'book/library.html' %}
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-light">
+  <div class="container-fluid">
+    <div class="navbar-header">
+
+    </div>
+    <ul class="nav navbar-nav">
+
+
+      <li style="background-color:#CC9A9A;"><a  href="{% url 'stock_purchase' %}" >Sales</a></li>
+        <li ><a  href="{% url 'stock_purchase' %}" >Stock_purchased</a></li>
+        <li class="active"><a  href="{% url 'ic_product_list' %}" >Product_info</a></li>
+        <li style="background-color:#CC9A9A;"><a  href="{% url 'stock_purchase' %}" >Reports</a></li>
+        <li style="background-color:#CC9A9A;"><a  href="{% url 'stock_purchase' %}" >Stock_left</a></li>
+        <li><a  href="{% url 'ic_expensive' %}" >Other_expensive</a></li>
+
+
+    </ul>
+  </div>
+</nav>
+<div class="container">
+<div class="row">
+
+                 <div class="col-sm-2">
+                     <h1>Bites</h1>
+                     {% for i in data %}
+                     {{ i }}
+                     {% endfor %}
+                     </div>
+        <div class="col-sm-2">
+                     <h1>Bars</h1>
+
+            {% for i in data_bites %}
+            {{ i }}
+
+                     {% endfor %}
+
+                     </div>
+        <div class="col-sm-2">
+                     <h1>Sticks</h1>
+                     </div>
+        <div class="col-sm-2">
+                     <h1>Cups</h1>
+                     </div>
+        <div class="col-sm-2">
+                     <h1>Sandwitch</h1>
+                     </div>
+        <div class="col-sm-2">
+                     <h1>hello</h1>
+                     </div>
+        </div>
+
+
+
+
+{% endblock %}

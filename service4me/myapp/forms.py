@@ -46,6 +46,28 @@ class mrgtrackCreate(forms.ModelForm):
     class Meta:
         model = marriage
         fields = ['Sno', 'First_name', 'Surname', 'DOB', 'Father_name', 'Father_Occupation', 'Mother_name', 'Mother_Occupation', 'Siblings', 'Skin_tone', 'Study', 'Occupation','Address', 'Contact_number',  'Gender', 'Age', 'Height', 'Religion', 'Sub_cast',  'Denomination', 'Mother_tongue','Image_profile']
+############################# Ice Cream ############################
+class IC_Product_create(forms.ModelForm):
+    class Meta:
+        model = IC_Product
+        fields = ['Product_name','Market_price','Whole_sal_price','No_items_in_box' ]
+
+
+class IC_Expensive_create(forms.ModelForm):
+    class Meta:
+        model = IC_Expensive
+        fields = ['Item_name','Item_amount','date_purchase' ]
+
+class IC_Stock_purchased_create(forms.ModelForm):
+    class Meta:
+            model = IC_Stock_purchased
+            fields = ['prod_name','quantity','date_purchase' ]
+
+
+class IC_Stock_sold_create(forms.ModelForm):
+    class Meta:
+        model = IC_Stock_sold
+        fields = ['prod_name','quantity','date_sold' ]
 
 
 

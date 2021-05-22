@@ -363,3 +363,103 @@ def email(request):
     recipient_list = ['manoj7573@gmail.com',]
     send_mail( subject, message, email_from, recipient_list )
     return redirect('home')
+
+##################################################################
+##### ICE CREAM ##################################################
+##################################################################
+
+@login_required
+def ic_product_list(request):
+    upload = IC_Product_create()
+    #data = IC_Product.objects.all()
+    #return render(request, 'ic/product_info.html', {'upload_form':upload,'data': data})
+    #data = worktrackCreate()
+    if request.method == 'POST':
+        data = IC_Product_create(request.POST, request.FILES)
+        if data.is_valid():
+            data = data.save(commit=False)
+            data.author= request.user
+            #upload.author = request.user
+            data.save()
+            return redirect('ic_product_list')
+
+        else:
+            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
+    else:
+        data = IC_Product.objects.all()
+        return render(request, 'ic/product_info.html', {'upload_form':upload,'data':data})
+
+
+@login_required
+def ic_expensive(request):
+    upload = IC_Expensive_create()
+    #data = IC_Product.objects.all()
+    #return render(request, 'ic/product_info.html', {'upload_form':upload,'data': data})
+    #data = worktrackCreate()
+    if request.method == 'POST':
+        data = IC_Expensive_create(request.POST, request.FILES)
+        if data.is_valid():
+            data = data.save(commit=False)
+            data.author= request.user
+            data.save()
+            return redirect('ic_expensive')
+
+        else:
+            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
+    else:
+        data = IC_Expensive.objects.all()
+        return render(request, 'ic/ic_expensive.html', {'upload_form':upload,'data':data})
+
+@login_required
+def stock_purchase(request):
+    upload = IC_Stock_purchased_create()
+    #data = IC_Product.objects.all()
+    #return render(request, 'ic/product_info.html', {'upload_form':upload,'data': data})
+    #data = worktrackCreate()
+    if request.method == 'POST':
+        data = IC_Stock_purchased_create(request.POST, request.FILES)
+        if data.is_valid():
+            data = data.save(commit=False)
+            data.author= request.user
+            data.save()
+
+            return redirect('stock_purchase')
+
+        else:
+            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
+    else:
+        data = IC_Stock_purchased.objects.all().order_by('-date_purchase')
+        prod_info = IC_Product.objects.all()
+        return render(request, 'ic/stock_purchase.html', {'upload_form':upload,'data':data,'prod_info':prod_info})
+
+
+
+@login_required
+def ic_stock_left(request):
+    upload = IC_Expensive_create()
+    #data = IC_Product.objects.all()
+    #return render(request, 'ic/product_info.html', {'upload_form':upload,'data': data})
+    #data = worktrackCreate()
+
+    data_bites = IC_Product.objects.values_list('No_items_in_box').filter(Product_name='Bites')
+    #data_bar = IC_Product.objects.values_list('No_items_in_box').filter(Product_name='Bites')
+    data_bar = IC_Stock_purchased.objects.values_list('quantity').filter(prod_name='1').select_related('data_bites')
+    #data_bites = IC_Stock_purchased.objects.values_list('quantity').filter(quantity=5).distinct()
+    return render(request, 'ic/stock_left.html', {'upload_form':upload,'data':data_bar,'data_bites':data_bites})
+
+@login_required
+def IC_Stock_sold_details(request):
+    upload = IC_Stock_sold_create()
+    if request.method == 'POST':
+        data = IC_Stock_sold_create(request.POST, request.FILES)
+        if data.is_valid():
+            data = data.save(commit=False)
+            data.author= request.user
+            data.save()
+            return redirect('IC_Stock_sold_details')
+
+        else:
+            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
+    else:
+        data = IC_Stock_sold.objects.all().order_by('-date_sold')
+        return render(request, 'ic/ic_sales.html', {'upload_form':upload,'data':data})

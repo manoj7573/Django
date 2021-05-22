@@ -93,3 +93,49 @@ class marriage(models.Model):
         def __str__(self):
                 return self.First_name
 
+class IC_Product(models.Model):
+        Product_no = models.AutoField(primary_key=True)
+        Product_name = models.CharField(max_length = 50, blank=True, null=True)
+        Market_price = models.FloatField(blank=True, null=True)
+        Whole_sal_price = models.FloatField(blank=True, null=True)
+        No_items_in_box = models.IntegerField(blank=True, null=True)
+        author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+        def __str__(self):
+                return self.Product_name
+
+class IC_Expensive(models.Model):
+        S_no = models.AutoField(primary_key=True)
+        Item_name = models.CharField(max_length = 50, blank=True, null=True)
+        Item_amount = models.IntegerField(blank=True, null=True)
+        date_purchase = models.DateField(default=datetime.date.today)
+        author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+        def __str__(self):
+                return self.Item_name
+
+class IC_Stock_purchased(models.Model):
+        S_No = models.AutoField(primary_key=True)
+        quantity = models.IntegerField(blank=True, null=True)
+        date_purchase = models.DateField(default=datetime.date.today,blank=True, null=True)
+        prod_name = models.ForeignKey(IC_Product, verbose_name="Product_name", on_delete=models.CASCADE)
+        author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+        def __str__(self):
+                return self.item_name
+
+class IC_Stock_sold(models.Model):
+        S_No = models.AutoField(primary_key=True)
+        prod_name = models.ForeignKey(IC_Product,  verbose_name="Product_name", on_delete=models.CASCADE)
+        quantity = models.IntegerField(blank=True, null=True)
+        date_sold = models.DateField(default=datetime.date.today)
+        author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+        def __str__(self):
+                return self.Item_name
+
+
+
+
+
+

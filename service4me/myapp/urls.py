@@ -53,6 +53,16 @@ urlpatterns = [
     path('email/', views.email ),
     ##path('email/', views.email ),
     ##path('new_look/', views.new_look, name = 'new_look'),
+
+############################# Ice Cream ############################
+    path('ic_product_list/', views.ic_product_list,name='ic_product_list'),
+    path('ic_expensive/', views.ic_expensive,name='ic_expensive'),
+    path('stock_purchase/', views.stock_purchase,name='stock_purchase'),
+    path('IC_Stock_sold_details/', views.IC_Stock_sold_details,name='IC_Stock_sold_details'),
+    path('ic_stock_left/', views.ic_stock_left,name='ic_stock_left'),
+#########################################################
+
+
 ]
 #DataFlair
 

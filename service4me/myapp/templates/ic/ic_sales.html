@@ -1,0 +1,74 @@
+{% extends 'book/library.html' %}
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-light">
+  <div class="container-fluid">
+    <div class="navbar-header">
+
+    </div>
+    <ul class="nav navbar-nav">
+
+
+      <li style="background-color:#CC9A9A;"><a  href="{% url 'stock_purchase' %}" >Sales</a></li>
+        <li ><a  href="{% url 'stock_purchase' %}" >Stock_purchased</a></li>
+        <li class="active"><a  href="{% url 'ic_product_list' %}" >Product_info</a></li>
+        <!--<li><a  href="{% url 'stock_purchase' %}" >Reports</a></li> -->
+        <li style="background-color:#CC9A9A;"><a  href="{% url 'ic_stock_left' %}" >Stock_left</a></li>
+        <li><a  href="{% url 'ic_expensive' %}" >Other_expensive</a></li>
+
+
+    </ul>
+  </div>
+</nav>
+<div class="container">
+
+    <div class="row">
+          <div class="col-sm-6">
+  <table class="table"  >
+    <thead >
+      <tr style="background-color:#EC9A9A;color:#000000;">
+        <th>No</th>
+        <th>Name</th>
+        <th>quantity</th>
+        <th>date_sold</th>
+
+      </tr>
+
+    {% for i in data %}
+    <tr  style="background-color:#F7D2D2;color:#000000;"   >
+        <td>{{ i.S_No}}</td>
+        <td>{{ i.prod_name}}</td>
+        <td>{{ i.quantity}}</td>
+        <td>{{ i.date_sold}}</td>
+
+    </tr>
+
+    {% endfor %}
+    </thead>
+  </table>
+</div>
+         <div class="col-sm-6">
+ <div class="modal-body">
+
+			  	    <form method = 'POST' enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <table class = 'w-50 table table-light'   style="border-radius:10px;background-color:#FFFF99;">
+                            {% for field in upload_form %}
+                            <tr>
+                                <th>{{field.label}}</th>
+                                <td>{{ field }} </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <input type="submit" name="Received" class="btn btn-success" value="Add New Item" />
+
+
+                    </form>
+        </div>
+             </div>
+</div>
+    <!--<a href="ic_update/" class="btn btn-secondary" >Add_new_item</a>-->
+
+</div>
+
+
+{% endblock %}
