@@ -8,12 +8,12 @@
     <ul class="nav navbar-nav">
 
 
-      <li class="active"><a  href="{% url 'stock_purchase' %}" >Sales</a></li>
+      <li class="active"><a  href="{% url 'IC_Stock_sold_details' %}" >Sales</a></li>
         <li><a  href="{% url 'stock_purchase' %}" >Stock_purchased</a></li>
         <li class="active"><a  href="{% url 'ic_product_list' %}" >Product_info</a></li>
-        <li><a  href="{% url 'stock_purchase' %}" >Reports</a></li>
-        <li class="active"><a  href="{% url 'stock_purchase' %}" >Stock_left</a></li>
-        <li><a  href="{% url 'ic_expensive' %}" >Other_expensive</a></li>
+        <!--<li><a  href="{% url 'stock_purchase' %}" >Reports</a></li>-->
+       <!-- <li class="active"><a  href="{% url 'stock_purchase' %}" >Stock_left</a></li> -->
+        <li style="background-color:#fff8dc;"><a  href="{% url 'ic_expensive' %}" >Other_expensive</a></li>
 
 
 
@@ -28,7 +28,7 @@
 
 			  	    <form method = 'POST' enctype="multipart/form-data">
                         {% csrf_token %}
-                        <table class = 'w-50 table table-light'   style="border-radius:10px;background-color:#FFFF99;">
+                        <table class = 'w-50 table table-light'   style="border-radius:10px;background-color:#800080;">
                             {% for field in upload_form %}
                             <tr>
                                 <th>{{field.label}}</th>
