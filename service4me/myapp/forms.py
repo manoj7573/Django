@@ -67,8 +67,7 @@ class IC_Stock_purchased_create(forms.ModelForm):
 class IC_Stock_sold_create(forms.ModelForm):
     class Meta:
         model = IC_Stock_sold
-        fields = ['prod_name','quantity','date_sold' ]
-
+        fields = ['prod_name','quantity' ]
 
 
 

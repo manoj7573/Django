@@ -461,5 +461,16 @@ def IC_Stock_sold_details(request):
         else:
             return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
     else:
-        data = IC_Stock_sold.objects.all().order_by('-date_sold')
+        data = IC_Stock_sold.objects.all().filter( date_sold=datetime.date.today(),author=request.user).order_by('-date_sold')
+        #prod = IC_Product.objects.all()
+        #today = datetime.date.today()
+        #date_time_obj = datetime.datetime.strptime(str(date), '%Y%m%d')
+        #data_day = IC_Stock_sold.objects.filter(date_sold=date_time_obj.date(), author=request.user)
+        #a = IC_Stock_sold.objects.filter(prod__prod_name='Bites')
+        #psobjs = IC_Product.objects.filter(Product_name='Bites').values('Market_price')
+        #print(psobjs.query)
+        #queryset = IC_Stock_sold.objects.filter(prod_name__in=psobjs.values('Product_name')).values('prod_name')
+        #print(queryset.query)
+        #queryset1 = IC_Stock_view.objects.all().values()
+        #print(queryset1.query)
         return render(request, 'ic/ic_sales.html', {'upload_form':upload,'data':data})

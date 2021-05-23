@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from django.contrib.auth.models import User
+from dbview.models import DbView
 
 
 
@@ -132,9 +133,7 @@ class IC_Stock_sold(models.Model):
         author = models.ForeignKey(User, on_delete=models.CASCADE)
 
         def __str__(self):
-                return self.Item_name
-
-
+                return self.prod_name
 
 
 
