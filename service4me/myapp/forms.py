@@ -69,5 +69,8 @@ class IC_Stock_sold_create(forms.ModelForm):
         model = IC_Stock_sold
         fields = ['prod_name','quantity' ]
 
-
+class cloths_billing_Create(forms.ModelForm):
+    class Meta:
+        model = cloths_billing
+        fields = ['CUST_NAME', 'CUST_PH_NO', 'CLOTH_CD','UNITS', 'TOT_AMT']
 

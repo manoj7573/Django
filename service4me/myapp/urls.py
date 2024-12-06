@@ -61,7 +61,7 @@ urlpatterns = [
     path('IC_Stock_sold_details/', views.IC_Stock_sold_details,name='IC_Stock_sold_details'),
     path('ic_stock_left/', views.ic_stock_left,name='ic_stock_left'),
 #########################################################
-
+    path('cloths_bill/', views.cloth_bill_view, name='cloths_bill'),
 
 ]
 #DataFlair

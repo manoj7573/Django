@@ -34,10 +34,11 @@
 
       {% if user.is_authenticated %}
       <li class="active"><a  href="{% url 'home' %}" >Home</a></li>
-      <li ><a  href="{% url 'worktrack' %}" >Work Track</a></li>
+      <!--<li ><a  href="{% url 'worktrack' %}" >Work Track</a></li>
       <li ><a  href="{% url 'marriage' %}" >Marriage Details</a></li>
         <li ><a  href="{% url 'IC_Stock_sold_details' %}" >IceCream</a></li>
-      <li ><a  href="#" >Profile</a></li>
+      <li ><a  href="#" >Profile</a></li> -->
+      <li ><a  href="{% url 'cloths_bill' %}" >Cloths</a></li>
       <li ><a  href="{% url 'logout' %}" >Logout</a></li>
       <li ><a> Hello {{ user }} !!</a></li>
       {% else %}

@@ -136,5 +136,16 @@ class IC_Stock_sold(models.Model):
                 return self.prod_name
 
 
+class cloths_billing(models.Model):
+        S_NO = models.AutoField(primary_key=True)
+        CUST_NAME = models.CharField(max_length = 100, blank=True, null=True)
+        CUST_PH_NO = models.IntegerField(blank=True, null=True)
+        CLOTH_CD = models.CharField(max_length = 100, blank=True, null=True)
+        UNITS = models.IntegerField(blank=True, null=True)
+        TOT_AMT = models.IntegerField(blank=True, null=True)
+        DATE_BILL = models.DateField(default=datetime.date.today)
+        author = models.ForeignKey(User, on_delete=models.CASCADE)
 
+        def __str__(self):
+                return self.CUST_NAME
 

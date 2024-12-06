@@ -21,6 +21,7 @@ from django.views import generic
 
 from django.core.mail import send_mail
 from django.conf import settings
+from requests import request
 
 
 #DataFlair
@@ -474,3 +475,45 @@ def IC_Stock_sold_details(request):
         #queryset1 = IC_Stock_view.objects.all().values()
         #print(queryset1.query)
         return render(request, 'ic/ic_sales.html', {'upload_form':upload,'data':data})
+
+@login_required
+def cloth_bill_view(request):
+    upload_up = cloths_billing_Create()
+    if 'search' in request.GET and request.GET['search']:
+
+        search_term = request.GET.get('search')
+        data = cloths_billing.objects.filter(CUST_PH_NO=search_term).values('S_NO','TOT_AMT','DATE_BILL') #author=request.user,
+        data_no = cloths_billing.objects.filter(CUST_PH_NO=search_term).values('CUST_PH_NO').distinct()
+
+        return render(request, 'cloths/purchase_stock.html', {'upload_form':upload_up,'data':data,'data_no':data_no})
+
+    elif 'submit' in request.POST:
+        upload = cloths_billing_Create(request.POST ,request.FILES)
+        if upload.is_valid():
+            upload = upload.save(commit=False)
+            upload.author = request.user
+            upload.save()
+        send_sms()
+
+        return render(request, 'cloths/purchase_stock.html', {'upload_form':upload_up})
+    else:
+        return render(request, 'cloths/purchase_stock.html', {'upload_form': upload_up})
+
+
+
+def send_sms():
+    #pass
+    #data = {}
+    data = cloths_billing.objects.values('CUST_PH_NO','TOT_AMT','CUST_NAME').order_by('-S_NO')[0]
+    #print(data)
+    #print(data.get('CUST_PH_NO'))
+    url = 'https://www.fast2sms.com/dev/bulkV2'
+    message = 'Hello '+data.get('CUST_NAME') +', Your Billing amount at Madhumathi Fashions at Kovvali Meeseva is Rs:'+ str(data.get('TOT_AMT')) +' Thank you for Shopping with us.'
+    Numbers = data.get('CUST_PH_NO')
+    payload = f'sender_id=TXTIND&message={message}&route=v3&language=english&numbers={Numbers}'
+    headers = {
+        'authorization': '5p0QF7oqEDgyH8txRuAs4UPkNXaLBzGbIhr6C9fTieZOWMJ3Sm2rnjJTGMY6fsWILcpACHzD4qQa9KSX',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    response = request("POST", url=url, data=payload, headers=headers)
+    print(response.text)
